@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="goods_list_sort_selected">#14dfdfdf</color>
+    <color name="goods_list_sort_unselected">#55b9b9b9</color>
+</resources>

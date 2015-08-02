@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <fragment
+        android:id="@+id/id_goods_list_title_fragment"
+        android:name="com.qianmi.kstore.fragment.GoodsListTitleFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical" />
+
+    <fragment
+        android:id="@+id/id_goods_list_fragment"
+        android:name="com.qianmi.kstore.fragment.GoodsListItemFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+
+</LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="fill_parent" android:id="@+id/id_goods_list_title_fragment"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="综合"
+        android:id="@+id/goods_list_sort_common"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@color/goods_list_sort_selected" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="销量"
+        android:id="@+id/goods_list_sort_sale"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@color/goods_list_sort_unselected"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="价格"
+        android:id="@+id/goods_list_sort_price"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:background="@color/goods_list_sort_unselected"/>
+    </LinearLayout>

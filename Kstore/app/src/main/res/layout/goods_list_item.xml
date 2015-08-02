@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/goods_list_goods_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5px"
+        android:adjustViewBounds="true"
+        android:maxHeight="70dp"
+        android:maxWidth="110dp"
+        android:src="@drawable/goods_demo" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/goods_list_goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/goods_name"
+            android:textColor="#FF000000"
+            android:textSize="16px"
+            android:layout_weight="1"
+            android:height="39dp" />
+
+
+        <TextView
+            android:id="@+id/goods_list_goods_price"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="12.00"
+            android:textColor="#ffff0000"
+            android:textSize="13px"
+            android:gravity="center_vertical"
+            android:height="17dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="17dp"
+            android:minWidth="17dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="月销量"
+                android:id="@+id/goods_list_txt_sale_pref"
+                android:height="17dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="1000"
+                android:id="@+id/goods_list_goods_sale"
+                android:textColor="#ffff0000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="件  "
+                android:id="@+id/goods_list_txt_sale_suff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="95%"
+                android:id="@+id/goods_list_goods_score"
+                android:textColor="#ffff0000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="好评"
+                android:id="@+id/goods_list_txt_score_suff" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
