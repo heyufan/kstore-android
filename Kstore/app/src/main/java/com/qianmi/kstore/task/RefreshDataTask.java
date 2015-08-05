@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 /**
  * Created by 20150622 on 2015/8/2.
+ * 重新加载第一页数据，然后刷新列表
  */
 public class RefreshDataTask extends AsyncTask<Void, Void, HashMap<String, Object>> {
     private PullToRefreshListView refreshListView;

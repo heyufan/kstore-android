@@ -12,6 +12,7 @@ import java.util.Map;
 
 /**
  * Created by 20150622 on 2015/8/2.
+ * 加载更多数据，然后刷新列表
  */
 public class LoadMoreDataTask extends AsyncTask<Void, Void, HashMap<String, Object>> {
     private PullToRefreshListView refreshListView;

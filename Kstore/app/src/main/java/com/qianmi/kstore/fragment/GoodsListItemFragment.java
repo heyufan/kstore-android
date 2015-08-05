@@ -32,30 +32,46 @@ import java.util.Map;
 
 /**
  * Created by 20150622 on 2015/8/2.
+ * 商品列表的Fragment
  */
 public class GoodsListItemFragment extends ListFragment implements ExpandableListView.OnGroupClickListener,PullToRefreshBase.OnRefreshListener {
+    //列表数据，从后台获取的商品列表
     private List<Map<String, Object>> mData;
+    //列表适配器
     private MyAdapter adapter;
+    //下拉刷新控件
     private PullToRefreshListView goodsListView;
+    //商品列表整个页面的布局视图
     private View rootView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_goods_list, container, false);
+        //初始化控件
         initView();
+        //给控件绑定监听
         setListeners();
         //setListAdapter(adapter);
         return rootView;
     }
 
+    /**
+     * 初始化控件
+     */
     private void initView() {
+        //商品列表控件，可下拉刷新的列表控件
         goodsListView = (PullToRefreshListView) rootView.findViewById(R.id.goods_list_view);
+        //从服务端查询第一页数据
         mData = getData();
         adapter = new MyAdapter(this.getActivity());
         goodsListView.getRefreshableView().setAdapter(adapter);
+        //设置模式为下拉刷新
         goodsListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
 
     }
 
+    /**
+     * 绑定监听
+     */
     private void setListeners() {
         //设定下拉监听函数
         goodsListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
@@ -174,7 +190,9 @@ public class GoodsListItemFragment extends ListFragment implements ExpandableLis
         return list;
     }
 
-    // ListView 中某项被选中后的逻辑
+    /**
+     *  ListView 中某项被选中后的逻辑
+     */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         showInfo(position);
@@ -207,6 +225,9 @@ public class GoodsListItemFragment extends ListFragment implements ExpandableLis
 
     }
 
+    /**
+     * 视图中列表内包含的控件
+     */
     public final class ViewHolder {
         public ImageView goodsImgView;
         public TextView goodsNameText;
