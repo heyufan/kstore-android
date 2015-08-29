@@ -1,10 +1,12 @@
 package com.qianmi.kstore.task;
 
 import android.os.AsyncTask;
+import android.widget.EditText;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by 20150622 on 2015/8/2.
@@ -12,10 +14,12 @@ import java.util.HashMap;
  */
 public class RefreshDataTask extends AsyncTask<Void, Void, HashMap<String, Object>> {
     private PullToRefreshListView refreshListView;
+    private Map<String,Object> paraMap;
     public RefreshDataTask() {}
 
-    public RefreshDataTask(PullToRefreshListView refreshListView) {
+    public RefreshDataTask(PullToRefreshListView refreshListView,Map<String,Object> paraMap) {
         this.refreshListView = refreshListView;
+        this.paraMap = paraMap;
     }
 
     //后台处理部分
@@ -27,7 +31,7 @@ public class RefreshDataTask extends AsyncTask<Void, Void, HashMap<String, Objec
         } catch (InterruptedException e) {
         }
         HashMap<String, Object> map = new HashMap<String, Object>();
-
+        System.out.println("searchText====================="+paraMap.get("searchTitle"));
         return map;
     }
 

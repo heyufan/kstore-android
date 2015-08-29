@@ -27,9 +27,8 @@
             android:maxLines="2"
             android:text="@string/goods_name"
             android:textColor="#FF000000"
-            android:textSize="16px"
             android:layout_weight="1"
-            android:height="39dp" />
+            android:height="33dp" />
 
 
         <TextView
@@ -38,15 +37,14 @@
             android:layout_height="wrap_content"
             android:text="12.00"
             android:textColor="#ffff0000"
-            android:textSize="13px"
             android:gravity="center_vertical"
-            android:height="17dp" />
+            android:height="18dp" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="17dp"
+            android:minHeight="18dp"
             android:minWidth="17dp">
 
             <TextView

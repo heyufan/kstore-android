@@ -31,39 +31,39 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * ViewPagerÊµÏÖµÄÂÖ²¥Í¼¹ã¸æ×Ô¶¨ÒåÊÓÍ¼£¬Èç¾©¶«Ê×Ò³µÄ¹ã¸æÂÖ²¥Í¼Ğ§¹û£»
- * ¼ÈÖ§³Ö×Ô¶¯ÂÖ²¥Ò³ÃæÒ²Ö§³ÖÊÖÊÆ»¬¶¯ÇĞ»»Ò³Ãæ
- * 
+ * ViewPagerå®ç°çš„è½®æ’­å›¾å¹¿å‘Šè‡ªå®šä¹‰è§†å›¾ï¼Œå¦‚äº¬ä¸œé¦–é¡µçš„å¹¿å‘Šè½®æ’­å›¾æ•ˆæœï¼›
+ * æ—¢æ”¯æŒè‡ªåŠ¨è½®æ’­é¡µé¢ä¹Ÿæ”¯æŒæ‰‹åŠ¿æ»‘åŠ¨åˆ‡æ¢é¡µé¢
+ *
  *
  */
 
 public class SlideShowView extends FrameLayout {
-	
-	// Ê¹ÓÃuniversal-image-loader²å¼ş¶ÁÈ¡ÍøÂçÍ¼Æ¬£¬ĞèÒª¹¤³Ìµ¼Èëuniversal-image-loader-1.8.6-with-sources.jar
-	private ImageLoader imageLoader = ImageLoader.getInstance();
 
-    //ÂÖ²¥Í¼Í¼Æ¬ÊıÁ¿
+    // ä½¿ç”¨universal-image-loaderæ’ä»¶è¯»å–ç½‘ç»œå›¾ç‰‡ï¼Œéœ€è¦å·¥ç¨‹å¯¼å…¥universal-image-loader-1.8.6-with-sources.jar
+    private ImageLoader imageLoader = ImageLoader.getInstance();
+
+    //è½®æ’­å›¾å›¾ç‰‡æ•°é‡
     private final static int IMAGE_COUNT = 5;
-    //×Ô¶¯ÂÖ²¥µÄÊ±¼ä¼ä¸ô
+    //è‡ªåŠ¨è½®æ’­çš„æ—¶é—´é—´éš”
     private final static int TIME_INTERVAL = 5;
-    //×Ô¶¯ÂÖ²¥ÆôÓÃ¿ª¹Ø
-    private final static boolean isAutoPlay = true; 
-    
-    //×Ô¶¨ÒåÂÖ²¥Í¼µÄ×ÊÔ´
+    //è‡ªåŠ¨è½®æ’­å¯ç”¨å¼€å…³
+    private final static boolean isAutoPlay = true;
+
+    //è‡ªå®šä¹‰è½®æ’­å›¾çš„èµ„æº
     private String[] imageUrls;
-    //·ÅÂÖ²¥Í¼Æ¬µÄImageView µÄlist
+    //æ”¾è½®æ’­å›¾ç‰‡çš„ImageView çš„list
     private List<ImageView> imageViewsList;
-    //·ÅÔ²µãµÄViewµÄlist
+    //æ”¾åœ†ç‚¹çš„Viewçš„list
     private List<View> dotViewsList;
-    
+
     private ViewPager viewPager;
-    //µ±Ç°ÂÖ²¥Ò³
+    //å½“å‰è½®æ’­é¡µ
     private int currentItem  = 0;
-    //¶¨Ê±ÈÎÎñ
+    //å®šæ—¶ä»»åŠ¡
     private ScheduledExecutorService scheduledExecutorService;
-    
+
     private Context context;
-    
+
     //Handler
     private Handler handler = new Handler(){
 
@@ -73,9 +73,9 @@ public class SlideShowView extends FrameLayout {
             super.handleMessage(msg);
             viewPager.setCurrentItem(currentItem);
         }
-        
+
     };
-    
+
     public SlideShowView(Context context) {
         this(context,null);
         // TODO Auto-generated constructor stub
@@ -88,76 +88,76 @@ public class SlideShowView extends FrameLayout {
         super(context, attrs, defStyle);
         this.context = context;
 
-		initImageLoader(context);
-		
+        initImageLoader(context);
+
         initData();
         if(isAutoPlay){
             startPlay();
         }
-        
+
     }
     /**
-     * ¿ªÊ¼ÂÖ²¥Í¼ÇĞ»»
+     * å¼€å§‹è½®æ’­å›¾åˆ‡æ¢
      */
     private void startPlay(){
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(new SlideShowTask(), 1, 4, TimeUnit.SECONDS);
     }
     /**
-     * Í£Ö¹ÂÖ²¥Í¼ÇĞ»»
+     * åœæ­¢è½®æ’­å›¾åˆ‡æ¢
      */
     private void stopPlay(){
         scheduledExecutorService.shutdown();
     }
     /**
-     * ³õÊ¼»¯Ïà¹ØData
+     * åˆå§‹åŒ–ç›¸å…³Data
      */
     private void initData(){
         imageViewsList = new ArrayList<ImageView>();
         dotViewsList = new ArrayList<View>();
 
-        // Ò»²½ÈÎÎñ»ñÈ¡Í¼Æ¬
+        // ä¸€æ­¥ä»»åŠ¡è·å–å›¾ç‰‡
         new GetListTask().execute("");
     }
     /**
-     * ³õÊ¼»¯ViewsµÈUI
+     * åˆå§‹åŒ–Viewsç­‰UI
      */
     private void initUI(Context context){
-    	if(imageUrls == null || imageUrls.length == 0)
-    		return;
-    	
+        if(imageUrls == null || imageUrls.length == 0)
+            return;
+
         LayoutInflater.from(context).inflate(R.layout.layout_slideshow, this, true);
-        
+
         LinearLayout dotLayout = (LinearLayout)findViewById(R.id.dotLayout);
         dotLayout.removeAllViews();
-        
-        // ÈÈµã¸öÊıÓëÍ¼Æ¬ÌØÊâÏàµÈ
+
+        // çƒ­ç‚¹ä¸ªæ•°ä¸å›¾ç‰‡ç‰¹æ®Šç›¸ç­‰
         for (int i = 0; i < imageUrls.length; i++) {
-        	ImageView view =  new ImageView(context);
-        	view.setTag(imageUrls[i]);
-        	if(i==0)//¸øÒ»¸öÄ¬ÈÏÍ¼
-        		view.setBackgroundResource(R.drawable.appmain_subject_1);
-        	view.setScaleType(ScaleType.FIT_XY);
-        	imageViewsList.add(view);
-        	
-        	ImageView dotView =  new ImageView(context);
-        	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        	params.leftMargin = 4;
-			params.rightMargin = 4;
-			dotLayout.addView(dotView, params);
-        	dotViewsList.add(dotView);
-		}
-        
+            ImageView view =  new ImageView(context);
+            view.setTag(imageUrls[i]);
+            if(i==0)//ç»™ä¸€ä¸ªé»˜è®¤å›¾
+                view.setBackgroundResource(R.drawable.appmain_subject_1);
+            view.setScaleType(ScaleType.FIT_XY);
+            imageViewsList.add(view);
+
+            ImageView dotView =  new ImageView(context);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            params.leftMargin = 4;
+            params.rightMargin = 4;
+            dotLayout.addView(dotView, params);
+            dotViewsList.add(dotView);
+        }
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setFocusable(true);
-        
+
         viewPager.setAdapter(new MyPagerAdapter());
         viewPager.setOnPageChangeListener(new MyPageChangeListener());
     }
-    
+
     /**
-     * Ìî³äViewPagerµÄÒ³ÃæÊÊÅäÆ÷
-     * 
+     * å¡«å……ViewPagerçš„é¡µé¢é€‚é…å™¨
+     *
      */
     private class MyPagerAdapter  extends PagerAdapter {
 
@@ -170,10 +170,10 @@ public class SlideShowView extends FrameLayout {
 
         @Override
         public Object instantiateItem(View container, int position) {
-        	ImageView imageView = imageViewsList.get(position);
+            ImageView imageView = imageViewsList.get(position);
 
-			imageLoader.displayImage(imageView.getTag() + "", imageView);
-        	
+            imageLoader.displayImage(imageView.getTag() + "", imageView);
+
             ((ViewPager)container).addView(imageViewsList.get(position));
             return imageViewsList.get(position);
         }
@@ -210,14 +210,14 @@ public class SlideShowView extends FrameLayout {
         @Override
         public void finishUpdate(View arg0) {
             // TODO Auto-generated method stub
-            
+
         }
-        
+
     }
     /**
-     * ViewPagerµÄ¼àÌıÆ÷
-     * µ±ViewPagerÖĞÒ³ÃæµÄ×´Ì¬·¢Éú¸Ä±äÊ±µ÷ÓÃ
-     * 
+     * ViewPagerçš„ç›‘å¬å™¨
+     * å½“ViewPagerä¸­é¡µé¢çš„çŠ¶æ€å‘ç”Ÿæ”¹å˜æ—¶è°ƒç”¨
+     *
      */
     private class MyPageChangeListener implements OnPageChangeListener {
 
@@ -227,35 +227,35 @@ public class SlideShowView extends FrameLayout {
         public void onPageScrollStateChanged(int arg0) {
             // TODO Auto-generated method stub
             switch (arg0) {
-            case 1:// ÊÖÊÆ»¬¶¯£¬¿ÕÏĞÖĞ
-                isAutoPlay = false;
-                break;
-            case 2:// ½çÃæÇĞ»»ÖĞ
-                isAutoPlay = true;
-                break;
-            case 0:// »¬¶¯½áÊø£¬¼´ÇĞ»»Íê±Ï»òÕß¼ÓÔØÍê±Ï
-                // µ±Ç°Îª×îºóÒ»ÕÅ£¬´ËÊ±´ÓÓÒÏò×ó»¬£¬ÔòÇĞ»»µ½µÚÒ»ÕÅ
-                if (viewPager.getCurrentItem() == viewPager.getAdapter().getCount() - 1 && !isAutoPlay) {
-                    viewPager.setCurrentItem(0);
-                }
-                // µ±Ç°ÎªµÚÒ»ÕÅ£¬´ËÊ±´Ó×óÏòÓÒ»¬£¬ÔòÇĞ»»µ½×îºóÒ»ÕÅ
-                else if (viewPager.getCurrentItem() == 0 && !isAutoPlay) {
-                    viewPager.setCurrentItem(viewPager.getAdapter().getCount() - 1);
-                }
-                break;
-        }
+                case 1:// æ‰‹åŠ¿æ»‘åŠ¨ï¼Œç©ºé—²ä¸­
+                    isAutoPlay = false;
+                    break;
+                case 2:// ç•Œé¢åˆ‡æ¢ä¸­
+                    isAutoPlay = true;
+                    break;
+                case 0:// æ»‘åŠ¨ç»“æŸï¼Œå³åˆ‡æ¢å®Œæ¯•æˆ–è€…åŠ è½½å®Œæ¯•
+                    // å½“å‰ä¸ºæœ€åä¸€å¼ ï¼Œæ­¤æ—¶ä»å³å‘å·¦æ»‘ï¼Œåˆ™åˆ‡æ¢åˆ°ç¬¬ä¸€å¼ 
+                    if (viewPager.getCurrentItem() == viewPager.getAdapter().getCount() - 1 && !isAutoPlay) {
+                        viewPager.setCurrentItem(0);
+                    }
+                    // å½“å‰ä¸ºç¬¬ä¸€å¼ ï¼Œæ­¤æ—¶ä»å·¦å‘å³æ»‘ï¼Œåˆ™åˆ‡æ¢åˆ°æœ€åä¸€å¼ 
+                    else if (viewPager.getCurrentItem() == 0 && !isAutoPlay) {
+                        viewPager.setCurrentItem(viewPager.getAdapter().getCount() - 1);
+                    }
+                    break;
+            }
         }
 
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
             // TODO Auto-generated method stub
-            
+
         }
 
         @Override
         public void onPageSelected(int pos) {
             // TODO Auto-generated method stub
-            
+
             currentItem = pos;
             for(int i=0;i < dotViewsList.size();i++){
                 if(i == pos){
@@ -265,11 +265,11 @@ public class SlideShowView extends FrameLayout {
                 }
             }
         }
-        
+
     }
-    
+
     /**
-     *Ö´ĞĞÂÖ²¥Í¼ÇĞ»»ÈÎÎñ
+     *æ‰§è¡Œè½®æ’­å›¾åˆ‡æ¢ä»»åŠ¡
      *
      */
     private class SlideShowTask implements Runnable {
@@ -282,12 +282,12 @@ public class SlideShowView extends FrameLayout {
                 handler.obtainMessage().sendToTarget();
             }
         }
-        
+
     }
-    
+
     /**
-     * Ïú»ÙImageView×ÊÔ´£¬»ØÊÕÄÚ´æ
-     * 
+     * é”€æ¯ImageViewèµ„æºï¼Œå›æ”¶å†…å­˜
+     *
      */
     private void destoryBitmaps() {
 
@@ -295,63 +295,63 @@ public class SlideShowView extends FrameLayout {
             ImageView imageView = imageViewsList.get(i);
             Drawable drawable = imageView.getDrawable();
             if (drawable != null) {
-                //½â³ıdrawable¶ÔviewµÄÒıÓÃ
+                //è§£é™¤drawableå¯¹viewçš„å¼•ç”¨
                 drawable.setCallback(null);
             }
         }
     }
- 
 
-	/**
-	 * Òì²½ÈÎÎñ,»ñÈ¡Êı¾İ
-	 * 
-	 */
-	class GetListTask extends AsyncTask<String, Integer, Boolean> {
 
-		@Override
-		protected Boolean doInBackground(String... params) {
-			try {
-				// ÕâÀïÒ»°ãµ÷ÓÃ·şÎñ¶Ë½Ó¿Ú»ñÈ¡Ò»×éÂÖ²¥Í¼Æ¬£¬ÏÂÃæÊÇ´Ó°Ù¶ÈÕÒµÄ¼¸¸öÍ¼Æ¬
-				
-				imageUrls = new String[]{
-						"http://image.zcool.com.cn/56/35/1303967876491.jpg",
-						"http://image.zcool.com.cn/59/54/m_1303967870670.jpg",
-						"http://image.zcool.com.cn/47/19/1280115949992.jpg",
-						"http://image.zcool.com.cn/59/11/m_1303967844788.jpg"
-				};
-				return true;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return false;
-			}
-		}
+    /**
+     * å¼‚æ­¥ä»»åŠ¡,è·å–æ•°æ®
+     *
+     */
+    class GetListTask extends AsyncTask<String, Integer, Boolean> {
 
-		@Override
-		protected void onPostExecute(Boolean result) {
-			super.onPostExecute(result);
-			if (result) {
-		        initUI(context);
-			}
-		}
-	}
-	
-	/**
-	 * ImageLoader Í¼Æ¬×é¼ş³õÊ¼»¯
-	 * 
-	 * @param context
-	 */
-	public static void initImageLoader(Context context) {
-		// This configuration tuning is custom. You can tune every option, you
-		// may tune some of them,
-		// or you can create default configuration by
-		// ImageLoaderConfiguration.createDefault(this);
-		// method.
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).threadPriority(Thread.NORM_PRIORITY - 2).denyCacheImageMultipleSizesInMemory().discCacheFileNameGenerator(new Md5FileNameGenerator()).tasksProcessingOrder(QueueProcessingType.LIFO).writeDebugLogs() // Remove
-																																																																								// for
-																																																																								// release
-																																																																								// app
-				.build();
-		// Initialize ImageLoader with configuration.
-		ImageLoader.getInstance().init(config);
-	}
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+                // è¿™é‡Œä¸€èˆ¬è°ƒç”¨æœåŠ¡ç«¯æ¥å£è·å–ä¸€ç»„è½®æ’­å›¾ç‰‡ï¼Œä¸‹é¢æ˜¯ä»ç™¾åº¦æ‰¾çš„å‡ ä¸ªå›¾ç‰‡
+
+                imageUrls = new String[]{
+                        "http://image.zcool.com.cn/56/35/1303967876491.jpg",
+                        "http://image.zcool.com.cn/59/54/m_1303967870670.jpg",
+                        "http://image.zcool.com.cn/47/19/1280115949992.jpg",
+                        "http://image.zcool.com.cn/59/11/m_1303967844788.jpg"
+                };
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            if (result) {
+                initUI(context);
+            }
+        }
+    }
+
+    /**
+     * ImageLoader å›¾ç‰‡ç»„ä»¶åˆå§‹åŒ–
+     *
+     * @param context
+     */
+    public static void initImageLoader(Context context) {
+        // This configuration tuning is custom. You can tune every option, you
+        // may tune some of them,
+        // or you can create default configuration by
+        // ImageLoaderConfiguration.createDefault(this);
+        // method.
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).threadPriority(Thread.NORM_PRIORITY - 2).denyCacheImageMultipleSizesInMemory().discCacheFileNameGenerator(new Md5FileNameGenerator()).tasksProcessingOrder(QueueProcessingType.LIFO).writeDebugLogs() // Remove
+                // for
+                // release
+                // app
+                .build();
+        // Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config);
+    }
 }

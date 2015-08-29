@@ -1,11 +1,10 @@
 package com.qianmi.kstore.fragment;
 
+import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -87,7 +87,9 @@ public class GoodsListItemFragment extends ListFragment implements ExpandableLis
                 goodsListView.getLoadingLayoutProxy().setRefreshingLabel("正在刷新");
                 //设置上一次刷新的提示标签
                 refreshView.getLoadingLayoutProxy().setLastUpdatedLabel("上一次更新时间:" + label);
-                new RefreshDataTask(goodsListView).execute();
+                Map<String,Object> paraMap = new HashMap<String, Object>();
+                paraMap.put("searchTitle",((EditText)getActivity().findViewById(R.id.text_goods_list_search)).getText());
+                new RefreshDataTask(goodsListView,paraMap).execute();
             }
         });
 

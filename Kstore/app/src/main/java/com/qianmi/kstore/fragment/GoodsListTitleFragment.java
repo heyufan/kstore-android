@@ -21,8 +21,7 @@ public class GoodsListTitleFragment extends Fragment {
     //按价格排序控件
     private TextView goodsListSortPriceTxt = null;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goods_list_title, container, false);
         initView(view);
         bindOnclickListener();
@@ -45,11 +44,17 @@ public class GoodsListTitleFragment extends Fragment {
      */
     private void bindOnclickListener() {
         goodsListSortCommonTxt.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 goodsListSortCommonTxt.setBackgroundColor(getResources().getColor(R.color.goods_list_sort_selected));
+                goodsListSortCommonTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, null, getResources().getDrawable(R.drawable.line_red));
+
                 goodsListSortSaleTxt.setBackgroundColor(getResources().getColor(R.color.goods_list_sort_unselected));
+                goodsListSortSaleTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+
                 goodsListSortPriceTxt.setBackgroundColor(getResources().getColor(R.color.goods_list_sort_unselected));
+                goodsListSortPriceTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             }
         });
 
@@ -57,8 +62,12 @@ public class GoodsListTitleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 goodsListSortSaleTxt.setBackgroundColor(getResources().getColor(R.color.goods_list_sort_selected));
+                goodsListSortSaleTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, null, getResources().getDrawable(R.drawable.line_red));
+
                 goodsListSortCommonTxt.setBackgroundColor(getResources().getColor(R.color.goods_list_sort_unselected));
+                goodsListSortCommonTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 goodsListSortPriceTxt.setBackgroundColor(getResources().getColor(R.color.goods_list_sort_unselected));
+                goodsListSortPriceTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             }
         });
 
@@ -66,8 +75,12 @@ public class GoodsListTitleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 goodsListSortPriceTxt.setBackgroundColor(getResources().getColor(R.color.goods_list_sort_selected));
+                goodsListSortPriceTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, null, getResources().getDrawable(R.drawable.line_red));
+
                 goodsListSortSaleTxt.setBackgroundColor(getResources().getColor(R.color.goods_list_sort_unselected));
+                goodsListSortSaleTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 goodsListSortCommonTxt.setBackgroundColor(getResources().getColor(R.color.goods_list_sort_unselected));
+                goodsListSortCommonTxt.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             }
         });
     }

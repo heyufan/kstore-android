@@ -12,6 +12,7 @@
         android:id="@+id/goods_list_sort_common"
         android:layout_weight="1"
         android:gravity="center"
+        android:drawableBottom="@drawable/line_red"
         android:background="@color/goods_list_sort_selected" />
 
     <TextView
